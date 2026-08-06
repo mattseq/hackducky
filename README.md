@@ -39,7 +39,7 @@ Hackducky is hackclubs own version of making a USB rubber ducky built by hackclu
 We ship a raw hackducky to you. There is no firmware preinstalled. These steps will help you get started with the ducky!
 
 ## Step 1: Flashing CircuitPython to the board.
-1. Head to the [Raspberry Pi Pico 2 CircuitPython download page](https://circuitpython.org/board/raspberry_pi_pico2/)
+1. Head to the [Raspberry Pi Pico CircuitPython download page](https://circuitpython.org/board/raspberry_pi_pico/)
 2. Download the .uf2 firmware.
 3. Plug in your HackDucky. A new drive named RPI-RP2 should appear.
 4. Drag and drop the .uf2 firmware into the drive.
