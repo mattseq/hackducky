@@ -1,4 +1,4 @@
-# NOT IMPLEMENTED: BUTTON, ATTACKMODE, LED, $_RANDOM_MIN, $_RANDOM_MAX
+# NOT IMPLEMENTED: BUTTON, $_RANDOM_MIN, $_RANDOM_MAX
 import os
 import digitalio
 import board
