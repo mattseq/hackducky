@@ -2,6 +2,7 @@
 import os
 import digitalio
 import board
+import state
 
 print("Main.py: Starting up...")
 # Setup LED
@@ -26,7 +27,7 @@ from adafruit_logging import FileHandler
 
 logger = logging.getLogger("compiler.py")
 logger.setLevel(logging.DEBUG)
-programming_mode = True
+programming_mode = state.programming_mode
 
 try:
     LOG_FILE_PATH = "/debug.log"
@@ -35,7 +36,6 @@ try:
     import adafruit_datetime as datetime
 
     logger.info(f"BOOT {datetime.datetime.now()}")
-    programming_mode = False
 except:
     print("Debug mode active...")
     print("Logging to file is disabled.")
@@ -404,6 +404,12 @@ try:
 
                 elif command.startswith("$"):
                     out.append(lambda l=line: self.reassign(l))
+
+                elif command.startswith("LED"):
+                    if line[1] == "1":
+                        status_led.value = True
+                    if line[1] == "0":
+                        status_led.value = True
 
             return out
 

@@ -5,6 +5,7 @@ import usb_hid
 import sdcardio
 import busio
 import os
+import state
 
 program_pin = digitalio.DigitalInOut(board.GP0)
 program_pin.direction = digitalio.Direction.INPUT
@@ -14,6 +15,7 @@ print("Boot.py: Starting...")
 
 payload_name = os.getenv("PAYLOAD_NAME")
 payload_dir = os.getenv("PAYLOAD_DIRECTORY")
+attack_mode = os.getenv("ATTACK_MODE")
 
 print("PAYLOAD DIRECTORY:", repr(payload_dir))
 print("PAYLOAD NAME:", repr(payload_name))
@@ -44,14 +46,17 @@ usb_hid.enable((usb_hid.Device.KEYBOARD,))
 
 if not program_pin.value:
     print("Boot.py: Entering programming mode")
+    state.programming_mode = False
     storage.remount("/", readonly=True)
-
 else:
     print("Boot.py: Entering payload mode")
-    storage.disable_usb_drive()
+    state.programming_mode = True
+    if attack_mode != "storage":
+        storage.disable_usb_drive()
+    else:
+        storage.remount("/", readonly=True)
 
     try:
-        # storage.remount("/", readonly=False)
         if usb_hid.devices:
             print("Boot.py: HID keyboard enabled successfully")
         else:
