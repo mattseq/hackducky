@@ -1,8 +1,8 @@
-# NOT IMPLEMENTED: BUTTON, $_RANDOM_MIN, $_RANDOM_MAX
+# NOT IMPLEMENTED: BUTTON, ATTACKMODE, $_RANDOM_MIN, $_RANDOM_MAX
 import os
 import digitalio
 import board
-import state
+import microcontroller
 
 print("Main.py: Starting up...")
 # Setup LED
@@ -27,7 +27,7 @@ from adafruit_logging import FileHandler
 
 logger = logging.getLogger("compiler.py")
 logger.setLevel(logging.DEBUG)
-programming_mode = state.programming_mode
+programming_mode = microcontroller.nvm[0] == 1
 
 try:
     LOG_FILE_PATH = "/debug.log"
@@ -405,11 +405,10 @@ try:
                 elif command.startswith("$"):
                     out.append(lambda l=line: self.reassign(l))
 
-                elif command.startswith("LED"):
-                    if line[1] == "1":
-                        status_led.value = True
-                    if line[1] == "0":
-                        status_led.value = False
+                elif command == "LED_ON":
+                    out.append(lambda: self.led(True))
+                elif command == "LED_OFF":
+                    out.append(lambda: self.led(False))
 
             return out
 
@@ -688,6 +687,9 @@ try:
         def delay(self, t: int):
             logger.debug(f"Sleeping for {t}ms")
             time.sleep(t / 1000)
+
+        def led(self, b: bool):
+            status_led.value = b
 
         def set_default_delay(self, t: int):
             self.default_delay = t
