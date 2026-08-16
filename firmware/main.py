@@ -406,9 +406,9 @@ try:
                     out.append(lambda l=line: self.reassign(l))
 
                 elif command == "LED_ON":
-                    out.append(lambda: self.led(True))
+                    out.append(lambda: self.set_led(True))
                 elif command == "LED_OFF":
-                    out.append(lambda: self.led(False))
+                    out.append(lambda: self.set_led(False))
 
             return out
 
@@ -688,7 +688,7 @@ try:
             logger.debug(f"Sleeping for {t}ms")
             time.sleep(t / 1000)
 
-        def led(self, b: bool):
+        def set_led(self, b: bool):
             status_led.value = b
 
         def set_default_delay(self, t: int):
