@@ -409,7 +409,7 @@ try:
                     if line[1] == "1":
                         status_led.value = True
                     if line[1] == "0":
-                        status_led.value = True
+                        status_led.value = False
 
             return out
 
