@@ -739,7 +739,7 @@ try:
     
     if ducky_files:
         print(f"Main.py: Creating compiler...")
-        compiler = DuckyScriptCompiler(layouts["us"], kbd, keycodes["us"])
+        compiler = DuckyScriptCompiler(layouts["uk"], kbd, keycodes["uk"])
         print(f"Main.py: Starting payload execution...")
         compiler.run(ducky_files[0])
     else:
